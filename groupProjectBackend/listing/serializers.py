@@ -67,10 +67,10 @@ class ListingSerializer(serializers.Serializer):
     image = serializers.URLField()
     link = serializers.URLField()
     owner = serializers.ReadOnlyField(source="owner.username")
-    typeList = serializers.PrimaryKeyRelatedField(many=True, queryset=Type.objects.all())
-    location = serializers.PrimaryKeyRelatedField(many=True, queryset=Location.objects.all())
-    level = serializers.PrimaryKeyRelatedField(many=True, queryset=Level.objects.all())
-    audience = serializers.PrimaryKeyRelatedField(many=True, queryset=Audience.objects.all())
+    typeList = serializers.SlugRelatedField('name', queryset=Type.objects.all())
+    location = serializers.SlugRelatedField('name', queryset=Location.objects.all())
+    level = serializers.SlugRelatedField('name', queryset=Level.objects.all())
+    audience = serializers.SlugRelatedField('name', queryset=Audience.objects.all())
 
     def create(self, validated_data):
         return Listing.objects.create(**validated_data)
