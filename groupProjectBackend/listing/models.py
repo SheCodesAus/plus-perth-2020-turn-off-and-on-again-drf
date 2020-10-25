@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.urls import reverse
+from PIL import Image
 
 class Type(models.Model):
     name = models.CharField(max_length=32)
@@ -66,7 +67,7 @@ class Listing(models.Model):
     date_created = models.DateTimeField()
     start_date = models.DateTimeField()
     apply_by_date = models.DateTimeField()
-    image = models.URLField()
+    image = models.ImageField(default=None, upload_to='listing_pics', blank=True, null=True)
     link = models.URLField()
     date_created = models.DateTimeField()
     typeList = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
@@ -81,3 +82,12 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        super(Listing, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300,  300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
