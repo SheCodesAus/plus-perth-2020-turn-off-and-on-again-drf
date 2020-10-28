@@ -74,6 +74,7 @@ class Listing(models.Model):
     location = models.ForeignKey(Location, null=True, blank=True, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, null=True, blank=True, on_delete=models.CASCADE)
     audience = models.ForeignKey(Audience, null=True, blank=True, on_delete=models.CASCADE)
+    eligibility = models.TextField()
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
