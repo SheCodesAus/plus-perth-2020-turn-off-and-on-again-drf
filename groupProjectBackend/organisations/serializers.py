@@ -13,7 +13,7 @@ class OrganisationSerializer(serializers.Serializer):
         return Organisation.objects.create(**validated_data)
 
 class OrganisationDetailSerializer(OrganisationSerializer):
-    # users = CustomUserSerializer(many=True, read_only=True)
+    users = CustomUserSerializer(many=True, read_only=True)
 
     def update(self, instance, validated_data):
         instance.organisation = validated_data.get("organisation", instance.organisation)
@@ -24,4 +24,4 @@ class OrganisationDetailSerializer(OrganisationSerializer):
 
         instance.save()
         return instance
-        
+
