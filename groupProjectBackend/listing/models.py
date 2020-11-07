@@ -70,11 +70,11 @@ class Listing(models.Model):
     image = models.ImageField(default=None, upload_to='listing_pics', blank=True, null=True)
     link = models.URLField()
     date_created = models.DateTimeField()
-    typeList = models.ForeignKey(Type, null=True, blank=True, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, null=True, blank=True, on_delete=models.CASCADE)
-    level = models.ForeignKey(Level, null=True, blank=True, on_delete=models.CASCADE)
-    audience = models.ForeignKey(Audience, null=True, blank=True, on_delete=models.CASCADE)
     eligibility = models.TextField()
+    audience = models.ManyToManyField(Audience)
+    typeList = models.ManyToManyField(Type)
+    location = models.ManyToManyField(Location)
+    level = models.ManyToManyField(Level)
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
