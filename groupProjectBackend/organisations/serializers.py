@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Organisation
-#from ..users.serializers import CustomUserSerializer
+from users.serializers import CustomUserSerializer
 
 class OrganisationSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
@@ -14,7 +14,7 @@ class OrganisationSerializer(serializers.Serializer):
         return Organisation.objects.create(**validated_data)
 
 class OrganisationDetailSerializer(OrganisationSerializer):
-   # users = CustomUserSerializer(many=True, read_only=True)
+    users = CustomUserSerializer(many=True, read_only=True)
 
     def update(self, instance, validated_data):
         instance.organisation = validated_data.get("organisation", instance.organisation)
