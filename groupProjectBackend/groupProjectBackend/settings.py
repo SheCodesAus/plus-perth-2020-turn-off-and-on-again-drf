@@ -35,6 +35,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'listing.apps.ListingConfig',
+    'organisations.apps.OrganisationsConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
