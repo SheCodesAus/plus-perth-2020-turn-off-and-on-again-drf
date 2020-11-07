@@ -66,6 +66,7 @@ class ListingSerializer(serializers.Serializer):
     apply_by_date = serializers.DateTimeField()
     image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
     link = serializers.URLField()
+    eligibility = serializers.CharField(max_length=200)
     owner = serializers.ReadOnlyField(source="owner.username")
     typeList = serializers.SlugRelatedField('name', queryset=Type.objects.all())
     location = serializers.SlugRelatedField('name', queryset=Location.objects.all())
