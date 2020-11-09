@@ -20,6 +20,7 @@ class ListingList(ListAPIView):
     serializer_class = ListingSerializer
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ["date_created"]
+    
 
     def get_queryset(self):
         queryset = Listing.objects.all()

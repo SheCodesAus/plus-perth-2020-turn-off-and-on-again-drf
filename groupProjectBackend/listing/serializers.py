@@ -5,6 +5,8 @@ class TypeSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
+    # img = serializers.URLField()
+
 
     def create(self, validated_data):
         return Type.objects.create(**validated_data)
@@ -12,6 +14,7 @@ class TypeSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
+        # instance.img = validated_data.get("img", instance.img)
         instance.save()
         return instance
 
@@ -19,6 +22,8 @@ class LocationSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
+    # img = serializers.URLField()
+
 
     def create(self, validated_data):
         return Location.objects.create(**validated_data)
@@ -26,6 +31,7 @@ class LocationSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
+        # instance.img = validated_data.get("img", instance.img)
         instance.save()
         return instance
     
@@ -33,6 +39,7 @@ class LevelSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
+    # img = serializers.URLField()
 
     def create(self, validated_data):
         return Level.objects.create(**validated_data)
@@ -40,6 +47,7 @@ class LevelSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
+        # instance.img = validated_data.get("img", instance.img)
         instance.save()
         return instance
 
@@ -47,6 +55,7 @@ class AudienceSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
+    # img = serializers.URLField()
 
     def create(self, validated_data):
         return Audience.objects.create(**validated_data)
@@ -54,6 +63,7 @@ class AudienceSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
+        # instance.img = validated_data.get("img", instance.img)
         instance.save()
         return instance
 
@@ -68,13 +78,23 @@ class ListingSerializer(serializers.Serializer):
     link = serializers.URLField()
     eligibility = serializers.CharField(max_length=200)
     owner = serializers.ReadOnlyField(source="owner.username")
-    typeList = serializers.SlugRelatedField('name', queryset=Type.objects.all())
-    location = serializers.SlugRelatedField('name', queryset=Location.objects.all())
-    level = serializers.SlugRelatedField('name', queryset=Level.objects.all())
-    audience = serializers.SlugRelatedField('name', queryset=Audience.objects.all())
+    typeList = serializers.SlugRelatedField('name', queryset=Type.objects.all(),many=True)
+    location = serializers.SlugRelatedField('name', queryset=Location.objects.all(),many=True)
+    level = serializers.SlugRelatedField('name', queryset=Level.objects.all(),many=True)
+    audience = serializers.SlugRelatedField('name', queryset=Audience.objects.all(),many=True)
 
     def create(self, validated_data):
-        return Listing.objects.create(**validated_data)
+        type_list = validated_data.pop('typeList')
+        location = validated_data.pop('location')
+        level = validated_data.pop('level')
+        audience = validated_data.pop('audience')
+        listing = Listing.objects.create(**validated_data)
+        listing.typeList.set(type_list)
+        listing.location.set(location)
+        listing.level.set(level)
+        listing.audience.set(audience)        
+
+        return listing
 
 class ListingDetailSerializer(ListingSerializer):
 
