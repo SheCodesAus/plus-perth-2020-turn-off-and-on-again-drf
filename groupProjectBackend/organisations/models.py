@@ -23,6 +23,8 @@ class Organisation(models.Model):
         related_name='owner_organisation'
     )
     logo = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
+    # logo = models.ImageField(default='default.jpg', upload_to='logo_pics', blank=True, null=True)
+    # logo = models.URLField()
     organisation = models.TextField(max_length=150, blank=True)
     description = models.TextField(max_length=300, blank=True)
     website = models.URLField()

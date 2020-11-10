@@ -6,7 +6,8 @@ class OrganisationSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     organisation = serializers.CharField(max_length=150)
     description = serializers.CharField(max_length=300)
-    logo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+    # logo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+    logo = serializers.URLField()
     website = serializers.URLField()
     owner = serializers.ReadOnlyField(source="owner.username")
 
