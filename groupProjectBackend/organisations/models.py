@@ -3,7 +3,9 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.urls import reverse
 # from PIL import Image
+import os
 import uuid
+from django.utils.timezone import now
 
 
 def upload_image_to(self, filename):
