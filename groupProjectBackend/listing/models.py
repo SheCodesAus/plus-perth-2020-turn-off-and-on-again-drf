@@ -104,6 +104,8 @@ class Listing(models.Model):
         related_name='owner_listing'
     )
 
+
+
     def __str__(self):
         return self.title
 
