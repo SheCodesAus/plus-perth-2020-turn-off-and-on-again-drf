@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.urls import reverse
-from PIL import Image
+# from PIL import Image
 from django.utils.timezone import now
 from datetime import datetime   
 
