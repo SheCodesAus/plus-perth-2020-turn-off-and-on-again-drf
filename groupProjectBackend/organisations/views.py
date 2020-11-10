@@ -30,7 +30,7 @@ class OrganisationList(ListAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrganisationDetail(APIView):
-    permission_classes = []
+    permission_classes = [permissions.AllowAny]
 
     def get_object(self, id):
         try:
