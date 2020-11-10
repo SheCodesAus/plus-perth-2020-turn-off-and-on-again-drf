@@ -5,7 +5,7 @@ class TypeSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
-    # img = serializers.URLField()
+    image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
 
 
     def create(self, validated_data):
@@ -14,7 +14,7 @@ class TypeSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
-        # instance.img = validated_data.get("img", instance.img)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
 
@@ -22,7 +22,7 @@ class LocationSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
-    # img = serializers.URLField()
+    image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
 
 
     def create(self, validated_data):
@@ -31,7 +31,7 @@ class LocationSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
-        # instance.img = validated_data.get("img", instance.img)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
     
@@ -39,7 +39,7 @@ class LevelSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
-    # img = serializers.URLField()
+    image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
 
     def create(self, validated_data):
         return Level.objects.create(**validated_data)
@@ -47,7 +47,7 @@ class LevelSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
-        # instance.img = validated_data.get("img", instance.img)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
 
@@ -55,7 +55,7 @@ class AudienceSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(max_length=32)
     slug = serializers.ReadOnlyField(required=False)
-    # img = serializers.URLField()
+    image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
 
     def create(self, validated_data):
         return Audience.objects.create(**validated_data)
@@ -63,7 +63,7 @@ class AudienceSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
-        # instance.img = validated_data.get("img", instance.img)
+        instance.image = validated_data.get("image", instance.image)
         instance.save()
         return instance
 
@@ -74,8 +74,8 @@ class ListingSerializer(serializers.Serializer):
     date_created = serializers.DateTimeField()
     start_date = serializers.DateTimeField()
     apply_by_date = serializers.DateTimeField()
-    # image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
-    image = serializers.URLField()
+    image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+    # image = serializers.URLField()
     link = serializers.URLField()
     eligibility = serializers.CharField(max_length=200)
     owner = serializers.ReadOnlyField(source="owner.username")
