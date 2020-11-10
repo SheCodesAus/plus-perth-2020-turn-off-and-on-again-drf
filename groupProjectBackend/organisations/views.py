@@ -11,7 +11,7 @@ from .serializers import (
 from .permissions import IsOwnerOrReadOnly
 
 class OrganisationList(ListAPIView):
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = []
     serializer_class = OrganisationSerializer
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ["date_created"]
