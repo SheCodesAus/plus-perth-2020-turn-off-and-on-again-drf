@@ -11,6 +11,7 @@ class CustomUserSerializer(serializers.Serializer):
         write_only=True,
         required=True,
     )
+    is_invited = serializers.ReadOnlyField()
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))

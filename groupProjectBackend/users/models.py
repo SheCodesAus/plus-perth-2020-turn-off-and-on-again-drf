@@ -4,7 +4,7 @@ from django.conf import settings
 from PIL import Image
 
 class CustomUser(AbstractUser):
-    pass
+    is_invited = models.BooleanField(default=False)
     
     def __str__(self):
         return self.username
