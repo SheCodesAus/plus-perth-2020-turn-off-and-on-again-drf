@@ -22,7 +22,7 @@ def upload_image_to(self, filename):
 class Type(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(unique=True)
-    # img = models.URLField()
+    image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -37,7 +37,7 @@ class Type(models.Model):
 class Location(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(unique=True)
-    # img = models.URLField()
+    image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
 
 
     def __str__(self):
@@ -53,7 +53,7 @@ class Location(models.Model):
 class Level(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(unique=True)
-    # img = models.URLField()
+    image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
 
 
     def __str__(self):
@@ -70,7 +70,7 @@ class Level(models.Model):
 class Audience(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(unique=True)
-    # img = models.URLField()
+    image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
 
 
     def __str__(self):
@@ -89,8 +89,8 @@ class Listing(models.Model):
     date_created = models.DateTimeField(default=datetime.now, blank=True)
     start_date = models.DateTimeField()
     apply_by_date = models.DateTimeField()
-    # image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
-    image = models.URLField()
+    image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
+    # image = models.URLField()
     link = models.URLField()
     date_created = models.DateTimeField()
     eligibility = models.TextField()
