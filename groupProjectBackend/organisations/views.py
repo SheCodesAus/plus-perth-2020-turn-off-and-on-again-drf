@@ -30,7 +30,7 @@ class OrganisationList(ListAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrganisationDetail(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = []
 
     def get_object(self, id):
         try:
@@ -57,7 +57,7 @@ class OrganisationDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id):
-        listing = self.get_object(id)
+        organisation = self.get_object(id)
         organisation.delete()
         return Response(status=status.HTTP_200_OK)
 
