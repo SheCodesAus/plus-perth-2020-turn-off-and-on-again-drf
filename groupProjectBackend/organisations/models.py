@@ -18,7 +18,7 @@ def upload_image_to(self, filename):
             u.hex
         )
 class Organisation(models.Model):
-    
+
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -30,18 +30,12 @@ class Organisation(models.Model):
     organisation = models.TextField(max_length=150, blank=True)
     description = models.TextField(max_length=300, blank=True)
     website = models.URLField()
-    slug = models.SlugField(unique=True, null=True)
 
     def __str__(self):
         return self.organisation
-    
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.organisation)
-        super(Organisation,self).save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse('organisation', kwargs={'slug': self.slug})
-
+        super(Organisation, self).save(*args, **kwargs)
 
         # img = Image.open(self.logo.path)
         # if img.height > 300 or img.width > 300:
