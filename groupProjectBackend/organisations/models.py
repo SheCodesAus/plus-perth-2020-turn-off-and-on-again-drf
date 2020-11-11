@@ -20,9 +20,14 @@ class Organisation(models.Model):
 
     def __str__(self):
         return self.organisation
-
+    
     def save(self, *args, **kwargs):
-        super(Organisation, self).save(*args, **kwargs)
+        self.slug = slugify(self.organisation)
+        super(Organisation,self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('organisation', kwargs={'slug': self.slug})
+
 
         # img = Image.open(self.logo.path)
         # if img.height > 300 or img.width > 300:

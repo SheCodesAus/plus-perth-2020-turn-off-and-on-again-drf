@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Listing, Type, Location, Level, Audience
+from organisations.models import Organisation
 
 class TypeSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
@@ -83,7 +84,7 @@ class ListingSerializer(serializers.Serializer):
     location = serializers.SlugRelatedField('name', queryset=Location.objects.all(),many=True)
     level = serializers.SlugRelatedField('name', queryset=Level.objects.all(),many=True)
     audience = serializers.SlugRelatedField('name', queryset=Audience.objects.all(),many=True)
-    organisation = serializers.ReadOnlyField()
+    organisation = serializers.SlugRelatedField('organisation', queryset=Organisation.objects.all())
 
     def create(self, validated_data):
         type_list = validated_data.pop('typeList')
