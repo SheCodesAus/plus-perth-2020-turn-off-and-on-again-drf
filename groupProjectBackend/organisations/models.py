@@ -5,7 +5,7 @@ from django.urls import reverse
 from PIL import Image
 
 class Organisation(models.Model):
-
+    
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -16,6 +16,7 @@ class Organisation(models.Model):
     organisation = models.TextField(max_length=150, blank=True)
     description = models.TextField(max_length=300, blank=True)
     website = models.URLField()
+    slug = models.SlugField(unique=True, null=True)
 
     def __str__(self):
         return self.organisation
