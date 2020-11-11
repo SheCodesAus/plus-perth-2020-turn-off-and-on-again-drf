@@ -4,6 +4,7 @@ from users.serializers import CustomUserSerializer
 
 class OrganisationSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
+    slug = serializers.ReadOnlyField(required=False)
     organisation = serializers.CharField(max_length=150)
     description = serializers.CharField(max_length=300)
     # logo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
@@ -23,6 +24,7 @@ class OrganisationDetailSerializer(OrganisationSerializer):
         instance.logo = validated_data.get("logo", instance.logo)
         instance.website = validated_data.get("website", instance.website)
         instance.owner = validated_data.get("owner", instance.owner)
+        instance.slug = validated_data.get("slug", instance.slug)
 
         instance.save()
         return instance

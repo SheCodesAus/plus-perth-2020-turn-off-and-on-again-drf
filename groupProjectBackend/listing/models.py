@@ -103,6 +103,14 @@ class Listing(models.Model):
         on_delete=models.CASCADE,
         related_name='owner_listing'
     )
+    organisation = models.ForeignKey(
+    'organisations.Organisation',
+    on_delete=models.CASCADE,
+    null=True,
+    blank=True
+    )
+
+
 
     def __str__(self):
         return self.title
