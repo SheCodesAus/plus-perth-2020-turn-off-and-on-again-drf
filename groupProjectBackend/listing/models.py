@@ -89,7 +89,6 @@ class Listing(models.Model):
     start_date = models.DateTimeField()
     apply_by_date = models.DateTimeField()
     image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
-    # image = models.URLField()
     link = models.URLField()
     date_created = models.DateTimeField()
     eligibility = models.TextField()

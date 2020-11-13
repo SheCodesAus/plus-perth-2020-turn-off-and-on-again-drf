@@ -24,6 +24,21 @@ class ListingList(ListAPIView):
 
     def get_queryset(self):
         queryset = Listing.objects.all()
+        typeList = self.request.query_params.get('typeList')
+        location = self.request.query_params.get('location')
+        audience = self.request.query_params.get('audience')
+        level = self.request.query_params.get('level')
+        organisation = self.request.query_params.get('organisation')
+        if typeList:
+            queryset = queryset.filter(typeList__name=typeList)
+        elif location:
+            queryset = queryset.filter(location__name=location)
+        elif audience:
+            queryset = queryset.filter(audience__name=audience)
+        elif level:
+            queryset = queryset.filter(level__name=level)
+        elif organisation:
+            queryset = queryset.filter(organisation__slug=organisation)
         return queryset
 
     def post(self, request):

@@ -13,7 +13,7 @@ class CustomUserSerializer(serializers.Serializer):
         required=True,
     )
     is_invited = serializers.ReadOnlyField()
-    organisation = serializers.SlugRelatedField('organisation', queryset=Organisation.objects.all())
+    organisation = serializers.SlugRelatedField('slug', queryset=Organisation.objects.all())
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
@@ -22,5 +22,9 @@ class CustomUserSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
+        instance.password = validated_data.get('password', instance.password)
+        instance.is_invited = validated_data.get('is_invited', instance.is_invited)
+        instance.organisation = validated_data.get('organisation', instance.organisation)
+
         instance.save()
         return instance
