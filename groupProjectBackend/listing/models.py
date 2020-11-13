@@ -71,8 +71,7 @@ class Audience(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(unique=True)
     image = models.ImageField(default=None, upload_to=upload_image_to, blank=True, null=True)
-
-
+    
     def __str__(self):
         return self.name
     
@@ -102,6 +101,12 @@ class Listing(models.Model):
         get_user_model(),
         on_delete=models.CASCADE,
         related_name='owner_listing'
+    )
+    organisation = models.ForeignKey(
+    'organisations.Organisation',
+    on_delete=models.CASCADE,
+    null=True,
+    blank=True
     )
 
     def __str__(self):

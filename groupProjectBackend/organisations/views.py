@@ -11,7 +11,10 @@ from .serializers import (
 from .permissions import IsOwnerOrReadOnly
 
 class OrganisationList(ListAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [
+        permissions.AllowAny
+    ]    
     serializer_class = OrganisationSerializer
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ["date_created"]
@@ -29,7 +32,6 @@ class OrganisationList(ListAPIView):
 
 class OrganisationDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-
     def get_object(self, id):
         try:
             organisation = Organisation.objects.get(id=id)
@@ -40,7 +42,6 @@ class OrganisationDetail(APIView):
 
     def get(self, request, id):
         organisation = self.get_object(id)
-        print(organisation)
         serializer = OrganisationDetailSerializer(organisation)
         return Response(serializer.data)
 
@@ -55,7 +56,7 @@ class OrganisationDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id):
-        listing = self.get_object(id)
+        organisation = self.get_object(id)
         organisation.delete()
         return Response(status=status.HTTP_200_OK)
 
