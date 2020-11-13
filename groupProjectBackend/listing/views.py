@@ -32,11 +32,11 @@ class ListingList(ListAPIView):
         if typeList:
             queryset = queryset.filter(typeList__slug=typeList)
         elif location:
-            queryset = queryset.filter(location__slug__in=location)
+            queryset = queryset.filter(location__slug=location)
         elif audience:
-            queryset = queryset.filter(audience__slug__in=audience)
+            queryset = queryset.filter(audience__slug=audience)
         elif level:
-            queryset = queryset.filter(level__slug__in=level)
+            queryset = queryset.filter(level__slug=level)
         elif organisation:
             queryset = queryset.filter(organisation__slug=organisation)
         return queryset
