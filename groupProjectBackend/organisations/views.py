@@ -32,31 +32,31 @@ class OrganisationList(ListAPIView):
 
 class OrganisationDetail(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-    def get_object(self, id):
+    def get_object(self, slug):
         try:
-            organisation = Organisation.objects.get(id=id)
+            organisation = Organisation.objects.get(slug=slug)
             self.check_object_permissions(self.request, organisation)
             return organisation
         except Organisation.DoesNotExist:
             raise Http404
 
-    def get(self, request, id):
-        organisation = self.get_object(id)
+    def get(self, request, slug):
+        organisation = self.get_object(slug)
         serializer = OrganisationDetailSerializer(organisation)
         return Response(serializer.data)
 
-    def put(self, request, id):
-        organisation = self.get_object(id)
+    def put(self, request, slug):
+        organisation = self.get_object(slug)
         serializer = OrganisationDetailSerializer(
             instance=organisation, data=request.data, partial=True
         )
-        if serializer.is_valid():
+        if serializer.is_valslug():
             serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
-        organisation = self.get_object(id)
+    def delete(self, request, slug):
+        organisation = self.get_object(slug)
         organisation.delete()
         return Response(status=status.HTTP_200_OK)
 
