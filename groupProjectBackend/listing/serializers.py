@@ -78,10 +78,10 @@ class ListingSerializer(serializers.Serializer):
     link = serializers.URLField()
     eligibility = serializers.CharField(max_length=200)
     owner = serializers.ReadOnlyField(source="owner.username")
-    typeList = serializers.SlugRelatedField('name', queryset=Type.objects.all(),many=True)
-    location = serializers.SlugRelatedField('name', queryset=Location.objects.all(),many=True)
-    level = serializers.SlugRelatedField('name', queryset=Level.objects.all(),many=True)
-    audience = serializers.SlugRelatedField('name', queryset=Audience.objects.all(),many=True)
+    typeList = serializers.SlugRelatedField('slug', queryset=Type.objects.all(),many=True)
+    location = serializers.SlugRelatedField('slug', queryset=Location.objects.all(),many=True)
+    level = serializers.SlugRelatedField('slug', queryset=Level.objects.all(),many=True)
+    audience = serializers.SlugRelatedField('slug', queryset=Audience.objects.all(),many=True)
     organisation = serializers.SlugRelatedField('organisation', queryset=Organisation.objects.all())
 
     def create(self, validated_data):
