@@ -14,6 +14,7 @@ from .serializers import (
     AudienceSerializer,
 )
 from .permissions import IsOwnerOrReadOnly
+import json
 
 class ListingList(ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -24,10 +25,10 @@ class ListingList(ListAPIView):
 
     def get_queryset(self):
         queryset = Listing.objects.all()
-        typeList = self.request.query_params.get('typeList')
-        location = self.request.query_params.get('location')
-        audience = self.request.query_params.get('audience')
-        level = self.request.query_params.get('level')
+        typeList = json.loads(self.request.query_params.get('typeList'))
+        location = json.loads(self.request.query_params.get('location'))
+        audience = json.loads(self.request.query_params.get('audience'))
+        level = json.loads(self.request.query_params.get('level'))
         organisation = self.request.query_params.get('organisation')
         if typeList:
             queryset = queryset.filter(typeList__slug=typeList)
