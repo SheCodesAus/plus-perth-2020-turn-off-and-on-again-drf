@@ -82,7 +82,7 @@ class ListingSerializer(serializers.Serializer):
     location = serializers.SlugRelatedField('slug', queryset=Location.objects.all(),many=True)
     level = serializers.SlugRelatedField('slug', queryset=Level.objects.all(),many=True)
     audience = serializers.SlugRelatedField('slug', queryset=Audience.objects.all(),many=True)
-    organisation = serializers.SlugRelatedField('organisation', queryset=Organisation.objects.all())
+    organisation = serializers.SlugRelatedField('slug', queryset=Organisation.objects.all())
 
     def create(self, validated_data):
         type_list = validated_data.pop('typeList')
