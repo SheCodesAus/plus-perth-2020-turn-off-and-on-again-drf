@@ -8,7 +8,7 @@ class OrganisationSerializer(serializers.Serializer):
     organisation = serializers.CharField(max_length=150)
     description = serializers.CharField(max_length=300)
     logo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
-    website = serializers.URLField()
+    website = serializers.CharField(max_length=300)
     owner = serializers.ReadOnlyField(source="owner.username")
 
     def create(self, validated_data):
