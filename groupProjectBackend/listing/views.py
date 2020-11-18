@@ -14,7 +14,7 @@ from .serializers import (
     AudienceSerializer,
 )
 from .permissions import IsOwnerOrReadOnly
-import json
+
 class ListingList(ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = ListingSerializer
